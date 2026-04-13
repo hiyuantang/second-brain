@@ -2,27 +2,50 @@
 
 A personal knowledge base built with Obsidian, synced via GitHub, and **maintained by Claude Code**. You feed it raw content; Claude processes, organizes, and commits structured knowledge.
 
+## Prerequisites
+
+- **[Obsidian](https://obsidian.md/)** — The local-first markdown app that renders your vault
+- **[Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview)** — The AI agent that classifies, writes, links, and commits notes on your behalf
+- **Git** — For version control and sync
+
+That's it. Claude Code handles all commits, linking, and organization automatically — you don't need to run git commands, configure Obsidian plugins, or manage sync manually.
+
 ## How It Works
 
 ```
-You → Paste raw content into Claude chat
+You → Paste raw content into Claude Code chat
 Claude → Classifies, processes, links, and commits
 Vault → Grows as a connected knowledge graph
 ```
 
 You don't need to worry about folders, templates, or linking. Just give Claude content and it figures out where things go.
 
-### What You Can Feed Claude
+## Quick Start
 
-| Content Type | Example | What Claude Does |
-|---|---|---|
-| **Article URL or text** | "Save this article about habit formation: https://..." | Creates a Literature Note + extracts Permanent Notes |
-| **Book notes/highlights** | "Here are my highlights from Atomic Habits..." | Creates a Book Note + key idea notes |
-| **Quick idea or thought** | "I just realized that compound effects apply to learning too" | Creates a Fleeting Note, later promotes to Permanent |
-| **Meeting or conversation notes** | "Met with Alex about the new project plan..." | Creates/updates a Project Note |
-| **Transcripts** | Podcast, video, or conversation transcripts | Extracts key ideas into structured notes |
-| **Daily log** | "Today I worked on X, learned Y, met Z" | Appends to today's Daily Note |
-| **Bulk content** | "Here are 5 articles I want to save" | Processes each with individual commits |
+### 1. Clone this repository
+
+```bash
+git clone https://github.com/hiyuantang/second-brain.git
+```
+
+**Do not fork** — just clone. If you want a private copy, create a new private repo and push here instead of to origin.
+
+### 2. Open in Obsidian
+
+Open Obsidian → "Open folder as vault" → select the `Second Brain/` folder.
+
+### 3. Start feeding it content
+
+Paste anything into the Claude Code chat:
+
+```
+"Save this article about habit formation: https://..."
+"Here are my highlights from Atomic Habits..."
+"Idea: compound effects apply to learning too"
+"Today I had a meeting with Sarah about the project..."
+```
+
+Claude will classify, write notes, link them together, and commit for you.
 
 ## Vault Structure
 
@@ -44,59 +67,36 @@ Second Brain/
 
 The vault combines **PARA** (actionability-based organization) with **Zettelkasten** (atomic, linked permanent notes). Claude handles the categorization.
 
-## How to Use
+## What You Can Feed Claude
 
-### Opening the Vault
+| Content | Example | What Claude Does |
+|---------|---------|-----------------|
+| Article URL or text | "Save this: https://..." | Creates a Literature Note + extracts Permanent Notes |
+| Book highlights | "Highlights from Deep Work..." | Creates a Book Note + key idea notes |
+| Quick idea | "Idea: the best way to learn is to teach it" | Creates a Fleeting Note, promotes to Permanent later |
+| Meeting notes | "Met with Alex about the new project..." | Creates/updates a Project Note |
+| Daily log | "Today I worked on X, learned Y..." | Appends to today's Daily Note |
+| Bulk content | "Here are 5 articles I want to save" | Processes each with individual commits |
 
-1. Clone this repository: `git clone <your-repo-url> second-brain`
-2. Open Obsidian → "Open folder as vault" → select the `Second Brain/` folder
-3. Open `Home.md` as your starting point
+## Retrieving Info
 
-### Ingesting Content (Primary Workflow)
+Open the vault in Obsidian and use:
 
-Just paste content into the Claude Code chat. Examples:
+| Method | Shortcut | Best For |
+|--------|----------|----------|
+| Quick Switcher | `Cmd/Ctrl+O` | Finding a note by title |
+| Global Search | `Cmd/Ctrl+Shift+F` | Full-text search |
+| Tag Search | `tag:#topic` | Finding notes on a topic |
+| Graph View | Visual node map | Discovering idea clusters |
+| Backlinks | Bottom of each note | Seeing what references this note |
+| MOCs | Maps of Content in `05 - Knowledge/MOCs/` | Browsing a topic systematically |
 
-```
-"Save this article: https://example.com/productivity-system"
-
-"Here are my notes from the book Deep Work by Cal Newport..."
-
-"Idea: the best way to learn something is to teach it. Write that down."
-
-"Process this transcript of the Huberman Lab episode on sleep..."
-
-"Today I had a meeting with Sarah about the website redesign..."
-```
-
-Claude will:
-1. Classify the content and choose the right template
-2. Create the note(s) with proper frontmatter and tags
-3. Search for and link to related existing notes
-4. Commit to git with a descriptive message
-5. Summarize what was added
-
-### Viewing Your Knowledge
-
-Open the vault in Obsidian to browse, search, and visualize:
-
-| Method | How | Best For |
-|--------|-----|----------|
-| **Quick Switcher** | `Cmd/Ctrl+O` | Finding a note by title |
-| **Global Search** | `Cmd/Ctrl+Shift+F` | Full-text search across all notes |
-| **Tag Search** | `tag:#topic` in search | Finding all notes on a topic |
-| **Graph View** | Visual node map | Discovering clusters of related ideas |
-| **Backlinks** | Bottom of each note | Discovering what references this note |
-| **MOCs** | Maps of Content in `05 - Knowledge/MOCs/` | Browsing a topic systematically |
-
-### Asking Claude to Retrieve
-
-You can also ask Claude to find things for you:
+Or ask Claude directly:
 
 ```
-"What do I have on the topic of habit formation?"
+"What do I have on habit formation?"
 "Show me all notes related to machine learning"
 "What books have I saved?"
-"Find connections between my notes on sleep and productivity"
 ```
 
 ## How to Expand
@@ -105,53 +105,33 @@ You can also ask Claude to find things for you:
 
 Tell Claude: "I want to save podcast episodes as a new type. Create a template and folder for it."
 
-Claude will:
-1. Create the subfolder (e.g., `04 - Resources/Podcasts/`)
-2. Create a Podcast Note Template in `90 - Templates/`
-3. Update this README
+Claude will create the folder, template, and update the config.
 
 ### Adding New Knowledge Domains
 
 Tell Claude: "I'm starting to learn about cryptography. Set up a knowledge area for it."
 
-Claude will:
-1. Create relevant subfolder structure if needed
-2. Create a `MOC - Cryptography.md` to serve as the topic hub
-3. Tag and file new notes appropriately
+Claude will create a `MOC - Cryptography.md` to serve as the topic hub and tag new notes appropriately.
 
 ### Creating MOCs (Maps of Content)
 
-When a topic accumulates 5+ notes, Claude should proactively suggest creating an MOC. You can also request one:
+When a topic accumulates 5+ notes, Claude proactively suggests creating an MOC. You can also request one:
 
 ```
 "I have a lot of notes about productivity. Create an MOC for it."
 ```
 
-### Adding Custom Templates
+## Tag Conventions
 
-Tell Claude: "Create a new template for lecture notes."
-
-Claude will create it in `90 - Templates/` using the established frontmatter and tag conventions.
-
-## Syncing with GitHub
-
-This vault uses git for version control. Claude commits after each ingestion session.
-
-```bash
-# Pull latest changes (e.g., on another device)
-git pull origin main
-
-# Push if you made manual changes in Obsidian
-git add .
-git commit -m "feat(knowledge): add notes on cryptography"
-git push origin main
-```
-
-Or use the **Obsidian Git** community plugin for automatic sync.
+- **Type tags**: `#type/daily`, `#type/fleeting`, `#type/literature`, `#type/permanent`, `#type/book`, `#type/project`, `#type/moc`, `#type/review`
+- **Status tags**: `#status/active`, `#status/on-hold`, `#status/completed`, `#status/archived`
+- **Topic tags**: lowercase, hyphenated (e.g., `#productivity`, `#machine-learning`)
+- **Source tags**: `#source/article`, `#source/book`, `#source/podcast`, `#source/video`, `#source/conversation`
 
 ## Maintenance
 
 ### Claude's Responsibilities
+
 - Classify and ingest all incoming content
 - Link new notes to existing ones
 - Create commits with conventional commit messages
@@ -159,8 +139,9 @@ Or use the **Obsidian Git** community plugin for automatic sync.
 - Periodically flag orphaned or unlinked notes
 
 ### Your Responsibilities
+
 - Review and triage flagged items when Claude asks
-- Complete monthly/annual reviews (use templates in `90 - Templates/`)
+- Complete monthly/annual reviews (or ask Claude to use the templates)
 - Archive completed projects (or ask Claude to do it)
 - Provide feedback if categorization isn't working
 
@@ -172,10 +153,3 @@ Or use the **Obsidian Git** community plugin for automatic sync.
 | **Weekly** | Review the week's ingestions, ask Claude for a summary |
 | **Monthly** | Complete a Monthly Review (ask Claude or use the template) |
 | **Yearly** | Annual reflection, prune stale areas, set new priorities |
-
-## Tag Conventions
-
-- **Type tags**: `#type/daily`, `#type/fleeting`, `#type/literature`, `#type/permanent`, `#type/book`, `#type/project`, `#type/moc`, `#type/review`
-- **Status tags**: `#status/active`, `#status/on-hold`, `#status/completed`, `#status/archived`
-- **Topic tags**: lowercase, hyphenated (e.g., `#productivity`, `#machine-learning`)
-- **Source tags**: `#source/article`, `#source/book`, `#source/podcast`, `#source/video`, `#source/conversation`
