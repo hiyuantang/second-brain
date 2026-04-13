@@ -2,9 +2,10 @@
 created: "{{date}}"
 tags:
   - type/permanent
+source: ""
 ---
 
-# {{title}}
+# Note Title
 
 ## Core Idea
 

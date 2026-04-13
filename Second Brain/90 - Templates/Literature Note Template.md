@@ -2,18 +2,16 @@
 created: "{{date}}"
 tags:
   - type/literature
+  - source/article  # change to source/book, source/youtube, source/podcast, source/research, source/newsletter
 source: ""
+url: ""
 author: ""
-type: "article"  # article, book, video, podcast, course
+type: "article"  # article, book, video, podcast, course, paper, newsletter
 ---
 
-# {{title}}
+# Article Title
 
-## Source
-
-- **Author:**
-- **URL:**
-- **Date consumed:**
+<!-- Source metadata is in frontmatter: author, source, type -->
 
 ## Summary
 

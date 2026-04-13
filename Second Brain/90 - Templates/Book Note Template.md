@@ -2,22 +2,16 @@
 created: "{{date}}"
 tags:
   - type/book
+  - source/book
+  - status/unread  # change to status/reading or status/completed
 author: ""
+url: ""
 genre: ""
-rating:
+rating: 0
 status: "unread"  # unread, reading, completed
 ---
 
-# {{title}} by {{author}}
-
-## Metadata
-
-- **Author:**
-- **Published:**
-- **Genre:**
-- **Pages:**
-- **Rating:** (1-7)
-- **Status:**
+# Book Title by Author
 
 ## Why I'm Reading This
 

@@ -2,11 +2,12 @@
 created: "{{date}}"
 tags:
   - type/project
-status: "active"  # active, on-hold, completed
-deadline:
+  - status/active  # change to status/on-hold, status/completed, or status/archived
+status: "active"  # active, on-hold, completed, archived
+deadline: ""
 ---
 
-# {{title}}
+# Project Name
 
 ## Overview
 
