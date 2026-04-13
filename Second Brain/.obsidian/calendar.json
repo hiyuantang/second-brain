@@ -1,0 +1,20 @@
+{
+  "collapse-filter": false,
+  "search": "",
+  "showTags": false,
+  "showAttachments": false,
+  "openUnlinked": false,
+  "showUnlinked": false,
+  "showView": true,
+  "filterUnlinked": false,
+  "removeUnlinked": false,
+  "removeOrphans": false,
+  "orphansCount": 0,
+  "excludedFiles": [],
+  "showDaily": false,
+  "showWeekly": false,
+  "showMonthly": false,
+  "showQuarterly": false,
+  "showYearly": false,
+  "showFolders": true
+}

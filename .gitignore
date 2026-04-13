@@ -1,0 +1,31 @@
+# OS files
+.DS_Store
+Thumbs.db
+*.log
+
+# Obsidian volatile UI state
+**/.obsidian/workspace.json
+**/.obsidian/workspace-mobile.json
+**/.obsidian/graph.json
+.obsidian/.gitignore
+
+# Obsidian trash
+.trash/
+
+# Tool scratch directories
+.firecrawl/
+
+# Large attachments (optional — uncomment if you want to exclude binaries)
+# 91 - Attachments/*.pdf
+# 91 - Attachments/*.png
+# 91 - Attachments/*.jpg
+# 91 - Attachments/*.jpeg
+# 91 - Attachments/*.gif
+# 91 - Attachments/*.mp3
+# 91 - Attachments/*.mp4
+
+# Templater scratch files (if used)
+*.tmp
+
+# Node modules (if any tooling is added)
+node_modules/
