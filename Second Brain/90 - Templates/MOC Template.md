@@ -24,6 +24,11 @@ tags:
 - [[ ]]
 - [[ ]]
 
+## Related MOCs
+
+<!-- Link to MOCs with overlapping topics -->
+- [[MOC - ]]
+
 ## Literature Notes
 
 <!-- Link to relevant source notes -->

@@ -25,6 +25,11 @@ category: ""  # person, tool, web, other
 
 <!-- Any additional context, how I found it, why it matters -->
 
-## Related
+## Connections
 
+- [[ ]]
+
+## Derived Permanent Notes
+
+<!-- Permanent notes extracted from this resource -->
 - [[ ]]

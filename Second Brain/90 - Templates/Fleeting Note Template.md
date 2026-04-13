@@ -2,7 +2,7 @@
 created: "{{date}}"
 tags:
   - type/fleeting
-  - source/conversation  # change based on origin
+  # add #source/* tag if the idea has a clear origin (e.g., source/conversation, source/book)
 source: ""
 ---
 

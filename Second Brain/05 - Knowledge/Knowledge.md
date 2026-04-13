@@ -1,13 +1,15 @@
 ---
 created: "2026-04-13"
 tags:
-  - type/moc
+  - type/index
 ---
 # Knowledge
 
 Your permanent notes — evergreen ideas, mental models, and synthesized insights.
 
 This is your Zettelkasten: a network of atomic, interconnected notes that grow smarter over time.
+
+← Back to [[Home|Second Brain Home]]
 
 ## Note Types
 

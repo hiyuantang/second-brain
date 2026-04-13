@@ -1,7 +1,7 @@
 ---
 created: "2026-04-13"
 tags:
-  - type/moc
+  - type/index
 ---
 # Daily
 

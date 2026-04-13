@@ -1,7 +1,7 @@
 ---
 created: "2026-04-13"
 tags:
-  - type/moc
+  - type/index
 ---
 # Areas
 
@@ -20,7 +20,7 @@ Ongoing areas of responsibility — no end date, just continuous attention.
 ## Convention
 
 - Each area gets its own subfolder or note
-- Areas evolve over time — review them during [[01 - Daily/Daily|Monthly Reviews]]
+- Areas evolve over time — review them during [[01 - Daily/Daily|Monthly Reviews]] using the template from `90 - Templates/`
 - Link to relevant [[05 - Knowledge/Knowledge|Knowledge]] notes for deeper understanding
 - Link to [[02 - Projects/Projects|Projects]] that serve this area
 

@@ -5,6 +5,7 @@ tags:
   - source/book
   - status/unread  # change to status/reading or status/completed
 author: ""
+source: ""  # book title, author, or source URL
 url: ""
 genre: ""
 rating: 0
@@ -38,6 +39,11 @@ status: "unread"  # unread, reading, completed
 ## My Thoughts
 
 <!-- Overall reaction, how it changed my thinking -->
+
+## Derived Permanent Notes
+
+<!-- Permanent notes extracted from this book's key ideas -->
+- [[ ]]
 
 ## Related Books
 

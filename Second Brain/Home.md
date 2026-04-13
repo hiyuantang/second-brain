@@ -1,7 +1,7 @@
 ---
 created: "2026-04-13"
 tags:
-  - type/moc
+  - type/index
 ---
 # Home
 
@@ -17,7 +17,7 @@ Your Second Brain — a local-first, plaintext knowledge base synced via GitHub.
 - [[05 - Knowledge/Knowledge|Knowledge]] — Permanent, evergreen notes (Zettelkasten)
 - [[06 - Archive/Archive|Archive]] — Completed and inactive items
 - `90 - Templates/` — Note templates
-- `99 - Meta/` — System guides and vault documentation
+- [[99 - Meta/Meta|Meta]] — System guides and vault documentation
 
 ## Workflow
 
