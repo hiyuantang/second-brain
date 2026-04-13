@@ -45,6 +45,11 @@ status: "unread"  # unread, reading, completed
 <!-- Permanent notes extracted from this book's key ideas -->
 - [[ ]]
 
+## Connections
+
+<!-- Link to related notes -->
+- [[ ]]
+
 ## Related Books
 
 - [[ ]]

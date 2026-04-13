@@ -2,7 +2,7 @@
 created: "{{date}}"
 tags:
   - type/fleeting
-  # add #source/* tag if the idea has a clear origin (e.g., source/conversation, source/book)
+  # Inherit source topic tags + add #source/* tag if the idea has a clear origin
 source: ""
 ---
 

@@ -37,10 +37,8 @@ Literature Notes live in 04 - Resources/ and feed into Permanent Notes.
 ## Maps of Content (MOCs)
 
 MOCs are index notes that group related permanent notes by theme.
-
-<!-- Add MOCs here as they emerge, e.g.: -->
-<!-- - [[MOC - Productivity|MOC - Productivity]] -->
-<!-- - [[MOC - Technology|MOC - Technology]] -->
+<!-- MOCs are created automatically when >= 5 permanent notes share a topic tag. -->
+<!-- They are linked here automatically when created. -->
 
 ## Rules
 

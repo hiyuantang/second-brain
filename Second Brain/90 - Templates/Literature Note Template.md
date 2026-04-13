@@ -31,8 +31,9 @@ type: "article"  # article, book, video, podcast, course, paper, newsletter
 
 <!-- How does this connect to what I already know? -->
 
-## Related Notes
+## Connections
 
+<!-- Link to related notes -->
 - [[ ]]
 
 ## Action Items
