@@ -1,3 +1,8 @@
+---
+created: "2026-04-13"
+tags:
+  - type/moc
+---
 # Areas
 
 Ongoing areas of responsibility — no end date, just continuous attention.

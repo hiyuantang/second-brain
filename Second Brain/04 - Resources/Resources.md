@@ -1,3 +1,8 @@
+---
+created: "2026-04-13"
+tags:
+  - type/moc
+---
 # Resources
 
 Reference material — things you've collected from the outside world.

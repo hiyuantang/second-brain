@@ -4,7 +4,7 @@ tags:
   - type/moc
 ---
 
-# MOC - {{title}}
+# MOC - Topic Name
 
 ## Overview
 

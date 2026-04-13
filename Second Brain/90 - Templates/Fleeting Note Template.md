@@ -2,10 +2,11 @@
 created: "{{date}}"
 tags:
   - type/fleeting
-source:
+  - source/conversation  # change based on origin
+source: ""
 ---
 
-# {{title}}
+# Idea Title
 
 ## Idea
 

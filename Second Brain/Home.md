@@ -1,3 +1,8 @@
+---
+created: "2026-04-13"
+tags:
+  - type/moc
+---
 # Home
 
 Your Second Brain — a local-first, plaintext knowledge base synced via GitHub.
@@ -27,7 +32,7 @@ Capture → Triage → Develop → Connect → Create → Archive
 
 ## Recent Notes
 
-> Use Obsidian's "Recent Files" plugin or check git log for latest changes.
+> Check git log for recent changes, or install the "Recent Files" community plugin in Obsidian for a file history view.
 
 ## Retrieval Strategies
 

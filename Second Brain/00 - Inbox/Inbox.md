@@ -1,3 +1,8 @@
+---
+created: "2026-04-13"
+tags:
+  - type/moc
+---
 # Inbox
 
 Quick capture zone. Everything starts here before triage.
@@ -11,7 +16,10 @@ Quick capture zone. Everything starts here before triage.
    - Articles/links → [[04 - Resources/Resources|Resources]]
    - Project-related → [[02 - Projects/Projects|Projects]]
    - Daily reflections → [[01 - Daily/Daily|Daily]]
-   - Reference material → [[04 - Resources/Resources|Resources]] or [[05 - Knowledge/Knowledge|Knowledge]]
+   - Courses/tutorials → [[04 - Resources/Resources|Resources]]/Courses/
+   - People/profiles → [[04 - Resources/Resources|Resources]]/People/
+   - Software/tools → [[04 - Resources/Resources|Resources]]/Tools/
+   - Web clippings → [[04 - Resources/Resources|Resources]]/Web/
 
 ## Untriage Notes
 

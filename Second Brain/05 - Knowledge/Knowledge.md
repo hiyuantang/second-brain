@@ -1,3 +1,8 @@
+---
+created: "2026-04-13"
+tags:
+  - type/moc
+---
 # Knowledge
 
 Your permanent notes — evergreen ideas, mental models, and synthesized insights.
@@ -13,8 +18,10 @@ This is your Zettelkasten: a network of atomic, interconnected notes that grow s
 ## Processing Pipeline
 
 ```
-Fleeting Note → Literature Note → Permanent Note → MOC
-    (capture)     (summarize)      (synthesize)      (connect)
+Fleeting Note → Permanent Note → MOC
+    (capture)     (synthesize)      (connect)
+
+Literature Notes live in 04 - Resources/ and feed into Permanent Notes.
 ```
 
 ## Convention

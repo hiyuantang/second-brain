@@ -1,3 +1,8 @@
+---
+created: "2026-04-13"
+tags:
+  - type/moc
+---
 # Archive
 
 Completed projects, outdated references, and inactive items.

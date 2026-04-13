@@ -2,7 +2,6 @@
   "types": {
     "tags": "multitext",
     "created": "date",
-    "updated": "date",
     "deadline": "date",
     "rating": "number",
     "source": "text",
@@ -10,6 +9,8 @@
     "genre": "text",
     "status": "text",
     "period": "text",
-    "type": "text"
+    "type": "text",
+    "url": "text",
+    "category": "text"
   }
 }

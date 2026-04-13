@@ -1,3 +1,8 @@
+---
+created: "2026-04-13"
+tags:
+  - type/moc
+---
 # Daily
 
 Daily notes for journaling, quick reflections, and linking ideas as they emerge.
