@@ -40,6 +40,8 @@ MOCs are index notes that group related permanent notes by theme.
 <!-- MOCs are created automatically when >= 5 permanent notes share a topic tag. -->
 <!-- They are linked here automatically when created. -->
 
+- <!-- MOC links will be added here as `- [[MOC - Topic]]` -->
+
 ## Rules
 
 1. Write notes in your own words — not copied quotes

@@ -113,10 +113,10 @@ Second Brain/
 ## Tag Conventions
 
 - `#type/daily`, `#type/fleeting`, `#type/literature`, `#type/permanent`, `#type/book`, `#type/project`, `#type/moc`, `#type/review`, `#type/resource`, `#type/index`, `#type/area`
-- `#type/index` — reserved for structural PARA hub/index files (Home.md, Inbox.md, Daily.md, Projects.md, Areas.md, Resources.md, Knowledge.md, Archive.md). These are navigation hubs, not topic-based MOCs.
-- `#status/active`, `#status/on-hold`, `#status/completed`, `#status/archived`, `#status/reading` (for book/course progress), `#status/unread` (for books/articles not yet reviewed)
+- `#type/index` — reserved for structural PARA hub/index files (Home.md, Inbox.md, Daily.md, Projects.md, Areas.md, Resources.md, Knowledge.md, Archive.md, Meta.md). These are navigation hubs, not topic-based MOCs.
+- `#status/active`, `#status/on-hold`, `#status/completed`, `#status/archived`, `#status/reading` (for book/course progress), `#status/unread` (for inbox notes awaiting processing), `#status/pending-extraction` (for source notes in Resources that yielded zero permanent ideas and await re-triage)
 - Topic tags: lowercase, hyphenated (e.g., `#productivity`, `#machine-learning`)
-- `#source/*` tags: `book`, `article`, `youtube`, `podcast`, `social-media`, `person`, `tool`, `research`, `conversation`, `web`
+- `#source/*` tags: `book`, `article`, `youtube`, `podcast`, `social-media`, `person`, `tool`, `research`, `conversation`, `web`, `newsletter`
 
 ## Ingestion Workflow (Claude-Driven)
 
@@ -126,9 +126,9 @@ This vault is primarily maintained by Claude Code. The user pastes raw content i
 
 When the user provides content, follow this pipeline:
 
-**Step 0: Inbox Triage (before ingestion)** — Scan `00 - Inbox/` for notes tagged `#status/unread`. If any exist, process them through Steps 1-6 of this pipeline, then delete the `#status/unread` tag from the triaged notes. This ensures no content sits in the inbox indefinitely. Skip this step if the user explicitly provides new content to ingest (triage happens at the start of the session, before new content processing).
+**Step 0: Inbox Triage (before ingestion)** — Scan `00 - Inbox/` for notes tagged `#status/unread`, and scan `04 - Resources/` for notes tagged `#status/pending-extraction`. If any exist, process them through Steps 1-6 of this pipeline, then delete the `#status/unread` or `#status/pending-extraction` tag from the triaged notes. This ensures no content sits in the inbox or pending queue indefinitely. **Triage attempt tracking**: Each time a source note is re-triaged, increment a `triage_attempts` frontmatter field (initialize to 0 on first triage). If `triage_attempts` reaches 2 and the note still yields zero permanent ideas, accept it as a standalone source note with no permanent ideas and leave it as-is. If the user explicitly provides new content to ingest, triage still happens at the start of the session (before new content processing) — do not skip inbox triage.
 
-**Step 1: Archive (conditional)** — If the new content makes an existing note obsolete (e.g., a project is completed, a tool is deprecated), move it to `06 - Archive/` before creating new notes. Commit the archive move separately with `archive: move completed project X` before any ingestion commits.
+**Pre-Ingestion: Archive (conditional)** — If the new content makes an existing note obsolete (e.g., a project is completed, a tool is deprecated), move it to `06 - Archive/` before creating new notes. Commit the archive move separately with `archive: move completed project X` before any ingestion commits.
 
 1. **Classify** — Determine the note type based on content:
    - **Article/essay/link** → Literature Note → `04 - Resources/Articles/`
@@ -147,11 +147,12 @@ When the user provides content, follow this pipeline:
    - **Podcast episode / audio** → Literature Note → `04 - Resources/Articles/` (use Literature Note template with `type: "podcast"` and `#source/podcast` tag)
    - **Social media post / thread** → Resource Note → `04 - Resources/Web/` (use Resource Note template with `#source/social-media` tag)
    - **Research paper / PDF** → Literature Note → `04 - Resources/Articles/` (use Literature Note template with `type: "paper"` and `#source/research` tag)
-   - **Newsletter** → Literature Note → `04 - Resources/Articles/` (use Literature Note template with `type: "newsletter"` and `#source/article` tag)
+   - **Newsletter** → Literature Note → `04 - Resources/Articles/` (use Literature Note template with `type: "newsletter"` and `#source/newsletter` tag)
    - **Code snippet / GitHub repo / tool discovery** → Resource Note → `04 - Resources/Tools/` (use Resource Note template with `#source/tool` tag; capture repo URL, key features, and why it's useful)
    - **Infographic / chart / diagram** → Resource Note → `04 - Resources/Web/` (save image to `91 - Attachments/`, use Resource Note template with description and key takeaways)
    - **Conversation transcript** → Save the transcript as a Resource Note in `04 - Resources/Web/` with `#source/conversation`, then extract key ideas as Fleeting or Permanent Notes (two-part ingestion — see Rule 9)
    - **Hybrid content (e.g., book review + personal reflection)** → Classify by external source first (Book Note, Literature Note, Resource Note). Extract any personal reactions, opinions, or reflections as separate Fleeting Notes. The source-driven note captures the external content; the fleeting note captures the user's reaction.
+   - **Monthly/periodic review** → Review Note → `99 - Meta/Reviews/YYYY-MM.md` with `#type/review` tag (use Monthly Review Template)
    - **Unclassified / ambiguous** → If none of the above categories clearly fit, place it in `00 - Inbox/` with a note about what it might be, and flag it for the user to triage
 
 2. **Process** — Apply the appropriate template from `90 - Templates/`
@@ -159,37 +160,55 @@ When the user provides content, follow this pipeline:
    - Fill in frontmatter (created date, tags, source)
    - Write content in the user's voice — summarize, don't copy-paste verbatim
    - Extract key ideas as separate bullet points or sections
-   - **Short-circuit check**: If a source note (literature/book/resource) yields zero extractable permanent ideas, skip the Link step (3b–3f), the Orphan check (4a), and MOC step (5). Tag it with `#status/unread` to flag for later processing, then proceed to Commit. Tagged notes will be reprocessed during the next session's Inbox Triage step (Step 0) — if they still yield zero permanent ideas after two triage attempts, accept them as standalone source notes with no permanent ideas and leave them as-is.
+   - **Short-circuit check**: If a source note (literature/book/resource) yields zero extractable permanent ideas, skip the Link step (3b–3g), the Orphan check (4a), and MOC step (5). **Still apply Step 4 (Tag)** — add `#type/*`, topic tags, and `#source/*` as normal. Also tag it with `#status/pending-extraction` to flag for later processing, then proceed to Commit. Initialize `triage_attempts: 1` in frontmatter. Tagged notes will be reprocessed during the next session's Inbox Triage step (Step 0) — each re-triage increments the counter. If `triage_attempts` reaches 2 and the note still yields zero permanent ideas, accept it as a standalone source note with no permanent ideas and leave it as-is.
 
 3. **Link** — Connect to existing notes (execute in this order):
    a. The new note file has already been created in Step 2
-   b. Link the new note back to its source literature/book/resource note via `[[wiki-link]]`
+   b. **Link to source (if applicable)**: If this note was derived from a source literature/book/resource note, link the new note back to it via `[[wiki-link]]`. If the note was created directly (e.g., a standalone permanent or fleeting idea with no source), skip this step.
    c. Edit the source note to add a forward link to the new note under the `## Connections` section. If that section does not exist in the source note, create it at the end of the note body (after all content).
-   d. Search the vault for other topically related notes and add **bidirectional** links: add links to the existing notes *in the new note's* `## Connections` section, AND edit each existing note's `## Connections` section to add a link back to the new note.
-   e. **Link placement**: Always use the `## Connections` section for new wiki-links between content notes. For permanent notes derived from a source note, also add them under `## Derived Permanent Notes` in the source note (create this section if absent) — this is in addition to `## Connections`, not a replacement. Never duplicate an existing link — check before adding.
-   f. **Fleeting note linking**: Fleeting notes created via the pipeline must be linked to at least one topically related existing note. Use Grep to find notes sharing a topic tag (topic tags will be applied in Step 4; use Grep to find notes that already have the relevant topic tag). If no topically related note exists, link to `05 - Knowledge/Knowledge.md` as a fallback. Place the link in the fleeting note's `## Connections` section.
+   d. **Bidirectional topical linking**: Determine the topical keywords/concepts from the note's content (these will become topic tags in Step 4). Use Grep to find existing notes sharing these topics (search for matching topic tags or keywords in their content). For each related note found, add **bidirectional** links: add links to the existing notes *in the new note's* `## Connections` section, AND edit each existing note's `## Connections` section to add a link back to the new note. **If no topically related notes exist**, link to `05 - Knowledge/Knowledge.md` as a fallback.
+   e. **Sibling linking**: When multiple permanent notes are derived from the same source note, link them to each other in their `## Connections` sections (they are topically related by construction).
+   f. **Link placement**: Always use the `## Connections` section for new wiki-links between content notes. For permanent notes derived from a source note, also add them under `## Derived Permanent Notes` in the source note (create this section if absent) — this is in addition to `## Connections`, not a replacement. Never duplicate an existing link — check before adding.
+   g. **Fleeting note linking**: Fleeting notes created via the pipeline must be linked to at least one topically related existing note. Use Grep to find notes sharing a topic tag (determine intended topics from the note's content; tags will be applied in Step 4). If no topically related note exists, link to `05 - Knowledge/Knowledge.md` as a fallback. Place the link in the fleeting note's `## Connections` section.
 
 4. **Tag** — Apply relevant tags
    - Always include the `#type/*` tag matching the note type
    - Add topic tags based on content (lowercase, hyphenated)
-   - Add `#source/*` tags if the content has a clear source (e.g., `#source/youtube`, `#source/book`, `#source/article`, `#source/person`, `#source/tool`, `#source/web`)
+   - **Source tags**: Add `#source/*` tags (e.g., `#source/youtube`, `#source/book`, `#source/article`) **only to source notes** (literature, book, resource, fleeting notes with a clear origin). **Do NOT add `#source/*` tags to derived permanent notes** — their provenance is captured via frontmatter and backlinks.
 
-4a. **Orphan check** (runs after tagging so topic tags are available): After creating a permanent note, verify it has at least one incoming wiki-link from another note. Use Grep to search for `\[\[Note Title\]\]` across all .md files. If it has no incoming links, add a link from the most topically related existing note (use Grep to find notes sharing the permanent note's topic tags). Place the link in the source note's `## Connections` section.
+   **Type-to-tag mapping**:
+   | Note type          | `#type/*` tag       |
+   |--------------------|---------------------|
+   | Literature Note    | `#type/literature`  |
+   | Book Note          | `#type/book`        |
+   | Resource Note      | `#type/resource`    |
+   | Fleeting Note      | `#type/fleeting`    |
+   | Permanent Note     | `#type/permanent`   |
+   | Project Note       | `#type/project`     |
+   | Area Note          | `#type/area`        |
+   | Daily Note         | `#type/daily`       |
+   | MOC                | `#type/moc`         |
+   | Review Note        | `#type/review`      |
+   | Index/Hub          | `#type/index`       |
+
+4a. **Orphan check** (runs after tagging so topic tags are available): After creating a permanent note, verify it has at least one incoming wiki-link from another note. Use Grep to search for `\[\[Note Title\]\]` across all .md files. If it has no incoming links, find the most topically related existing note (use Grep to find notes sharing the permanent note's topic tags) and place a link to the orphaned permanent note in **that topically related note's** `## Connections` section. **If no topically related note exists** (this is the first note on a new topic), link to `05 - Knowledge/Knowledge.md` as a fallback.
 
 5. **MOC (create or update)** — After tagging, check if MOC action is needed:
    - **Definition of "topic"**: For MOC purposes, a "topic" is any individual topic tag (e.g., `#productivity`). When a permanent note has multiple topic tags, each tag is a candidate topic for its own MOC. Evaluate each topic tag independently.
-   - **Create**: After adding a permanent note, count all permanent notes sharing each topic tag. **Exclude files tagged `#type/moc` from this count** — MOCs are index files, not permanent notes. If the count for any topic is >= 5 and no MOC exists for that topic in `05 - Knowledge/MOCs/`, create one:
+   - **Note counting**: Count only files tagged `#type/permanent`. **Exclude files tagged `#type/moc` and `#type/fleeting`** — MOCs are index files, fleeting notes are unrefined ideas, neither counts as a permanent note for MOC threshold purposes.
+   - **Create**: After adding a permanent note, count all permanent notes sharing each topic tag. If the count for any topic is >= 5 and no MOC exists for that topic in `05 - Knowledge/MOCs/`, create one:
      - Name it `MOC - Topic.md` where "Topic" is the capitalized topic tag (e.g., `MOC - Productivity.md`)
      - Use the MOC Template from `90 - Templates/`
      - Populate frontmatter with `created` date and `#type/moc` tag
-     - Add links to all related permanent notes under the "Permanent Notes" section
-     - Add a `## Related MOCs` section if other MOCs share overlapping topics, with links to those MOCs
-     - Add a link to the new MOC in `05 - Knowledge/Knowledge.md` under the MOCs section (append as `- [[MOC - Topic]]`)
+     - Add links to all related permanent notes under the "Permanent Notes" section (flat list, no sub-theme grouping required)
+     - Add a `## Related MOCs` section if other MOCs share overlapping topics (notes that appear in multiple MOCs indicate overlapping topics). When creating a new MOC, also update existing MOCs that share topics to reference the new MOC in their `## Related MOCs` section.
+     - Add a link to the new MOC in `05 - Knowledge/Knowledge.md` under the MOCs section (append as `- [[MOC - Topic]]` after the first bullet in that section)
    - **Update**: If an MOC already exists for the topic, add the new permanent note's link to the MOC's "Permanent Notes" section. Do not duplicate existing links.
-   - **Below-threshold signal**: If more than 3 permanent notes share a topic tag but have no MOC, **and all of those notes link only to `05 - Knowledge/Knowledge.md`** (no links to other permanent notes), create the MOC anyway. This catches the bootstrap phase where the first few permanent notes on a topic have nothing else to link to, preventing `Knowledge.md` from becoming a dumping ground.
+   - **Below-threshold signal**: If more than 3 permanent notes share a topic tag but have no MOC, **and fewer than half of those notes have bidirectional links to other permanent notes on the same topic**, create the MOC anyway. This catches the bootstrap phase where the first few permanent notes on a topic are weakly connected, preventing `Knowledge.md` from becoming a dumping ground.
+   - **MOC lifecycle**: If a permanent note's topic tags change after MOC creation, remove its link from the old MOC and add it to the new MOC (if the new topic warrants one). If all permanent notes in a MOC are archived or deleted, archive the MOC itself. Before creating a new MOC, check for existing MOCs with similar topics (e.g., `#productivity` vs `#time-management`) to avoid duplicates — if a close match exists, use the existing MOC instead.
 
 6. **Commit** — Create a small, focused commit
-   - One ingestion = one commit, **unless the pipeline explicitly requires multiple commits** (e.g., conversation transcripts require 2 commits per Rule 9, archive moves require a separate commit per Step 0). In multi-commit cases, make each commit as soon as its work is complete rather than batching.
+   - One ingestion = one commit, **unless the pipeline explicitly requires multiple commits** (e.g., conversation transcripts require 2 commits per Rule 9, archive moves require a separate commit per the Pre-Ingestion Archive step). In multi-commit cases, make each commit as soon as its work is complete rather than batching.
    - Use `feat(resources):` for articles/books/courses/people/tools/web/newsletters, `feat(knowledge):` for fleeting/permanent notes, `feat(daily):` for daily notes, `feat(projects):` for project notes and updates, `feat(inbox):` for items placed in the inbox for triage, or `feat(areas):` for ongoing-responsibility area notes
    - Include what was ingested and where it was placed
    - If multiple items are ingested in one session, make separate commits per item. Each commit message must be unique and under 72 characters — vary the description by referencing the specific source title, author, or a distinguishing topic. For similar titles, include a distinguishing detail (author, key topic, or source domain) to ensure uniqueness.

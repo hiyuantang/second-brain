@@ -2,7 +2,7 @@
 created: "{{date}}"
 tags:
   - type/fleeting
-  # Inherit source topic tags + add #source/* tag if the idea has a clear origin
+  # Inherit source topic tags (NOT #source/* tags — provenance is captured via frontmatter)
 source: ""
 ---
 

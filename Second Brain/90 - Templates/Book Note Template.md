@@ -3,13 +3,13 @@ created: "{{date}}"
 tags:
   - type/book
   - source/book
-  - status/unread  # change to status/reading or status/completed
+  - status/reading  # change to status/reading or status/completed
 author: ""
 source: ""  # book title, author, or source URL
 url: ""
 genre: ""
 rating: 0
-status: "unread"  # unread, reading, completed
+status: "reading"  # unread, reading, completed
 ---
 
 # Book Title by Author

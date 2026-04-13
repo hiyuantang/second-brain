@@ -2,7 +2,7 @@
 created: "{{date}}"
 tags:
   - type/literature
-  - source/article  # change to source/book, source/youtube, source/podcast, source/research, source/newsletter
+  # Set source tag based on type field: source/article, source/book, source/youtube, source/podcast, source/research, source/newsletter
 source: ""
 url: ""
 author: ""

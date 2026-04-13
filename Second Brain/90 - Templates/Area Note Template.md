@@ -2,6 +2,7 @@
 created: "{{date}}"
 tags:
   - type/area
+  - status/active
 status: active
 ---
 

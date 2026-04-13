@@ -2,7 +2,7 @@
 created: "{{date}}"
 tags:
   - type/resource
-  - source/web  # change to source/person, source/tool, etc.
+  # Set source tag based on category: source/person, source/tool, source/web, etc.
 url: ""
 category: ""  # person, tool, web, other
 ---

@@ -50,10 +50,10 @@ deadline: ""
 
 -
 
-## Related
+## Connections
 
-- **Area:** 
-- **Knowledge:** 
+<!-- Links to related Area notes and Knowledge notes -->
+- [[ ]]
 
 ---
 
