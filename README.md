@@ -37,8 +37,6 @@ You don't need to worry about folders, templates, or linking. Just give Claude c
 git clone https://github.com/hiyuantang/second-brain.git
 ```
 
-**Do not fork** — just clone. If you want a private copy, create a new private repo and push here instead of to origin.
-
 ### 2. Open in Obsidian
 
 Open Obsidian → "Open folder as vault" → select the `Second Brain/` folder.
@@ -173,8 +171,6 @@ Claude → 分类、处理、链接、提交
 ```bash
 git clone https://github.com/hiyuantang/second-brain.git
 ```
-
-**不要 Fork** — 直接克隆就行。如果你想要私密副本，创建一个新的私有仓库，推送到那里而不是 origin。
 
 ### 2. 在 Obsidian 中打开
 
